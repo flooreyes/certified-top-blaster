@@ -1,4 +1,4 @@
-# Next.js + Tailwind CSS + ShadCN + Biome
+# Certified Top Blaster
 
 ## Getting Started
 
