@@ -1,10 +1,13 @@
 @import "tailwindcss";
 @import "./shadcn.css";
-@import "./utilities.css";
+@import "./fonts.css";
+
+@font-face {
+  font-family: 'Blast';
+  src: url('/fonts/62DRAGZ.otf') format('opentype');
+}
 
 @theme {
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-newsreader);
 
   --radius: 0.5rem;
   --color-border: var(--border);
@@ -41,6 +44,8 @@
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
+  
+
   @keyframes accordion-down {
     from {
       height: 0;
@@ -62,29 +67,39 @@
   }
 }
 
+body {
+  height: 100%;
+  position: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  overflow: hidden;
+  background-color: var(--background);
+  font-family: 'BDOGrotesk';
+}
+
+.font-display {
+  font-family: "Blast";
+}
+
 @layer base {
   *::selection {
     @apply !bg-emerald-200 !text-emerald-700 dark:!bg-emerald-700 dark:!text-emerald-200;
   }
 }
 
-
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
   width: 20px;
-
 }
 
-::-webkit-scrollbar-track
-{
-  width: 20px;  /* for vertical scrollbars */
+::-webkit-scrollbar-track {
+  width: 20px; /* for vertical scrollbars */
   border-radius: 15px;
   overflow: auto;
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: var(--700);
   border-radius: 15px;
   min-height: 40px;
@@ -97,8 +112,8 @@
 
 /* Other existing styles... */
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -108,12 +123,12 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* Firefox swap form */
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

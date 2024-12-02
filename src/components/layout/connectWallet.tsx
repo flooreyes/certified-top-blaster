@@ -9,12 +9,12 @@ export const ConnectWallet = () => {
 
     <div className="relative h-10 w-auto ">
       {isConnected ? (
-        <div className="text-primary">
+        <div className="font-blast text-primary">
           {'(SIGN---OUT>'}
         </div>
       ) : (
         <div className="cursor-pointer flex items-center justify-center h-full pt-1">
-          Sign In
+          <Image src="/images/signin.svg" alt="logo" className="h-6 w-auto" width={800} height={300} />
         </div>
       )}
       <div className="opacity-0 absolute right-0 top-0">
