@@ -1,10 +1,142 @@
 @import "tailwindcss";
-@import "./shadcn.css";
-@import "./fonts.css";
+
+@font-face {
+  font-family: 'BDOGrotesk';
+  src: url('/fonts/BDOGrotesk-VF.woff2') format('woff2-variations'),
+       url('/fonts/BDOGrotesk-VF.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BDOGrotesk-Regular';
+  src: url('/fonts/BDOGrotesk-VF.woff2') format('woff2-variations'),
+       url('/fonts/BDOGrotesk-VF.ttf') format('truetype-variations');
+  font-weight: 400;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Blast';
   src: url('/fonts/62DRAGZ.otf') format('opentype');
+}
+
+
+@layer base {
+  :root {
+    --background: #000000;
+    --foreground: #F5F5F5;
+    --card: #1E1E1E;
+    --card-foreground: #F5F5F5;
+    --popover: #242424;
+    --popover-foreground: #F5F5F5;
+    --primary: #F2AD01;
+    --primary-foreground: #121212;
+    --secondary: #8B7355;
+    --secondary-foreground: #F5F5F5;
+    --muted: #4A4033;
+    --muted-foreground: #A3A3A3;
+    --accent: #614E1A;
+    --accent-foreground: #F5F5F5;
+    --destructive: #A13232;
+    --destructive-foreground: #F5F5F5;
+    --border: #121212;
+    --input: #2A2A2A;
+    --ring: #F2AD01;
+    --chart-1: #4D7FE3;
+    --chart-2: #2FA76F;
+    --chart-3: #F2AD01;
+    --chart-4: #9B4DDB;
+    --chart-5: #E34D7F;
+  }
+
+  /* Base text and background colors */
+  html, body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground font-semibold tracking-tight;
+  }
+
+  h1 { @apply text-4xl lg:text-5xl; }
+  h2 { @apply text-3xl lg:text-4xl; }
+  h3 { @apply text-2xl lg:text-3xl; }
+  h4 { @apply text-xl lg:text-2xl; }
+  h5 { @apply text-lg lg:text-xl; }
+  h6 { @apply text-base lg:text-lg; }
+
+  /* Paragraphs and inline text */
+  p { @apply leading-7 [&:not(:first-child)]:mt-6; }
+  small { @apply text-sm font-medium leading-none; }
+  
+  /* Links */
+  a {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+
+  /* Lists */
+  ul, ol {
+    @apply my-6 ml-6;
+  }
+  
+  ul { @apply list-disc; }
+  ol { @apply list-decimal; }
+  li { @apply mt-2; }
+
+  /* Block elements */
+  blockquote {
+    @apply mt-6 border-l-2 border-muted pl-6 italic text-muted-foreground;
+  }
+
+  /* Code blocks */
+  code {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm;
+  }
+
+  /* Form elements */
+  input, textarea, select {
+    @apply bg-input text-foreground;
+  }
+
+
+  /* HR */
+  hr {
+    @apply my-4 border-border;
+  }
+
+  /* Focus styles */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /* Scrollbar - keeping your existing styles but using theme variables */
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    width: 20px;
+    border-radius: 15px;
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--muted);
+    border-radius: 15px;
+    min-height: 40px;
+    border: 0.5rem solid transparent;
+    background-clip: padding-box;
+    transition: height 0.2s ease-in-out;
+    padding: 3px;
+  }
 }
 
 @theme {
@@ -82,53 +214,23 @@ body {
   font-family: "Blast";
 }
 
-@layer base {
-  *::selection {
-    @apply !bg-emerald-200 !text-emerald-700 dark:!bg-emerald-700 dark:!text-emerald-200;
-  }
+/* Keep your existing utility classes */
+.font-display {
+  font-family: "Blast";
 }
 
-::-webkit-scrollbar {
-  width: 20px;
-}
-
-::-webkit-scrollbar-track {
-  width: 20px; /* for vertical scrollbars */
-  border-radius: 15px;
-  overflow: auto;
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--700);
-  border-radius: 15px;
-  min-height: 40px;
-  overflow: auto;
-  border: 0.5rem solid transparent;
-  background-clip: padding-box;
-  transition: height 0.2s ease-in-out;
-  padding: 3px;
-}
-
-/* Other existing styles... */
-
+/* Keep your existing form input styles */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.tradingview-widget-container {
-  background-color: #080808 !important;
-}
-
-/* Firefox swap form */
 input[type="number"] {
   -moz-appearance: textfield;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* Keep your trading view widget style */
+.tradingview-widget-container {
+  background-color: var(--background) !important;
 }

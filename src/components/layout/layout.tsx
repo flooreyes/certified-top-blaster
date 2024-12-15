@@ -1,4 +1,3 @@
-import { Header } from 'components/layout/header';
 import {
   Dialog,
   DialogContent,
@@ -7,16 +6,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "components/ui/dialog"
+import Image from 'next/image';
+import { useAccount } from "wagmi";
+import { ConnectWallet } from "./connectWallet";
+import { Button } from "../ui/button";
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+
+  const { isConnected } = useAccount();
+
   return (
     <div className="flex h-screen w-screen flex-col transition-colors duration-300 ">
       <div className="flex flex-1 overflow-hidden">
         <main className="flex flex-1 h-full flex-col">
-          <Header />
-          <div className="h-full flex-1 bg-primary p-2 pt-[4px]">
-            <div className='bg-background w-full h-full rounded-b-lg '>
+          <div className="h-full flex-1 bg-primary p-2 ">
+            <div className='bg-background w-full h-full rounded-b-lg pt-12 px-2 pb-8'>
               {children}
               {/* teaser blur */}
               {/* <div className='h-auto w-auto absolute top-14 right-2 left-2 bottom-2 rounded-lg bg-black/50 backdrop-blur-md'></div> */}
@@ -24,17 +29,24 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </main>
       </div>
-      <div className='absolute bottom-0 right-0 pr-4 pl-4 flex items-center justify-end h-8 bg-primary rounded-tl-lg'
+      {/* logo */}
+      <div className="absolute top-0 left-0 bg-gradient-to-r from-primary to-transparent lg:w-96 lg:h-12 ">
+        <Image src="/images/logo2.svg" alt="logo" className="h-full w-72 md:w-96 " width={800} height={300} />
+      </div>
+      {/* Account*/}
+      <ConnectWallet />
+      {/* Hall of Fame */}
+      <div className='absolute bottom-0 left-0 pr-4 pl-2 flex items-center justify-end h-6 bg-primary rounded-tl-lg'
         style={{
-          clipPath: 'polygon(0 0, calc(100% - 0px) 0, 100% 100%, 31px 100%)',
+          clipPath: 'polygon(8px 0, 100% 0, 88% 100%, 0 100%)',
+
           borderRadius: '4px',
         }}>
-
         <Dialog>
           <DialogTrigger>
-            <div className="font-display text-black text-lg">
-              {'!how-to-play?'}
-            </div>
+            <Button variant={'ghost'} className="p-0 font-display text-black text-base cursor-pointer">
+              {'!HALL_OF_FAME?'}
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -47,7 +59,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </DialogContent>
         </Dialog>
       </div>
-
+      {/* info */}
+      <div className='absolute bottom-0 right-0 px-2 flex items-center justify-end h-7 bg-primary rounded-l-xl'
+        style={{
+          clipPath: 'polygon(7px 0, 100% 0, 100% 100%, 0 100%)',
+        }}>
+        <Dialog>
+          <DialogTrigger>
+            <Button variant={'ghost'} className="p-0 font-display text-black text-lg cursor-pointer">
+              {'(how_to-_play}'}
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you absolutely sure?</DialogTitle>
+              <DialogDescription>
+                This action cannot be undone. This will permanently delete your account
+                and remove your data from our servers.
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 }

@@ -1,56 +1,43 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import TabsComponent from '@/components/ui/tabs'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Settings } from 'lucide-react'
 import { useState } from 'react'
-import Badge from './utils/Badge'
+import Badge from '../utils/Badge'
+import AssetAmountInput from './tokenInput'
+import TradeSettings from './tradeSettings'
+import { useBlaster } from '@/components/providers/blasterProvider';
 
-
-function OrderForm({ currentPrice, onTrade }: { currentPrice: number, onTrade: (amount: number) => void }) {
-  const [tradeType, setTradeType] = useState('buy')
-  const [amount, setAmount] = useState('')
-  const balance = 10000 // Mock balance
+function OrderForm() {
+  const {
+    currentPrice,
+    tradeType,
+    amount,
+    balance,
+    setTradeType,
+    setAmount,
+    handleTrade
+  } = useBlaster();
 
   const tradeTabs = [
     { value: 'buy', label: 'Buy' },
     { value: 'sell', label: 'Sell' },
   ]
 
-  const handleTrade = () => {
+  const handleTradeSubmit = () => {
     const tradeAmount = parseFloat(amount)
     if (!isNaN(tradeAmount) && tradeAmount > 0) {
-      onTrade(tradeType === 'buy' ? tradeAmount : -tradeAmount)
+      handleTrade(tradeType === 'buy' ? tradeAmount : -tradeAmount)
     }
   }
 
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="h-[30rem] flex flex-col bg-transparent border-none">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <TabsComponent
           tabs={tradeTabs}
           activeTab={tradeType}
-          onValueChange={setTradeType}
+          onValueChange={(value) => setTradeType(value as "buy" | "sell")}
         />
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Settings className="h-4 w-4" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80">
-            <div className="grid gap-4">
-              <div className="space-y-2">
-                <h4 className="font-medium leading-none">Settings</h4>
-                <p className="text-sm text-muted-foreground">
-                  Configure your trading preferences here.
-                </p>
-              </div>
-              {/* Add settings options here */}
-            </div>
-          </PopoverContent>
-        </Popover>
+        <TradeSettings />
       </CardHeader>
       <CardContent className="flex-grow flex flex-col justify-between">
         <div className="space-y-4">
@@ -58,12 +45,7 @@ function OrderForm({ currentPrice, onTrade }: { currentPrice: number, onTrade: (
             <label htmlFor="amount" className="text-sm font-medium">
               Amount
             </label>
-            <Input
-              id="amount"
-              placeholder="Enter amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
+            <AssetAmountInput amount={amount} setAmount={setAmount} tradeType={tradeType as "buy" | "sell"} />
           </div>
           <div className="flex justify-between text-sm">
             <span>Balance:</span>
@@ -79,7 +61,7 @@ function OrderForm({ currentPrice, onTrade }: { currentPrice: number, onTrade: (
           </div>
         </div>
         <Badge className="w-full mt-4 text-black text-2xl font-display flex justify-center"
-          onClick={handleTrade}
+          onClick={handleTradeSubmit}
         >
           {tradeType === 'buy' ? '<Buy)' : '(Sell>'}
         </Badge>
