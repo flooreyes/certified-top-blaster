@@ -2,7 +2,7 @@
 
 import React, { type ReactNode } from 'react'
 import { createAppKit } from '@reown/appkit/react'
-import { base } from '@reown/appkit/networks'
+import { base, baseSepolia } from '@reown/appkit/networks'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { wagmiAdapter } from 'lib/web3/wagmiConfig'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
@@ -25,8 +25,8 @@ const metadata = {
 export const modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [base],
-  defaultNetwork: base,
+  networks: [baseSepolia],
+  defaultNetwork: baseSepolia,
   metadata: metadata,
   themeMode: 'dark',
   features: {

@@ -5,52 +5,29 @@ import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
 import { Metrics } from "@/components/metrics"
 import Chart from "@/components/chart"
-import ResponsiveScrollableTransactions from "@/components/activityTable"
-import { useMediaQuery } from "@/hooks/useMediaQuery"
-import OrderForm from "@/components/orderForm/orderForm"
+import ActivityTable from "@/components/activityTable"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import Transactions from "@/components/activityTable"
 
 export default function TradingApp() {
-  const [isOrderFormOpen, setIsOrderFormOpen] = useState(false)
-  const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <div className=" mx-auto p-4 rounded-lg  h-full w-full bg-background">
-      <div className="mb-6">
-        <Metrics />
-      </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 ">
-        {!isMobile && (
-          <div className="lg:col-span-1 max-w-[300px]">
-            <ResponsiveScrollableTransactions />
+    <div className="mx-auto p-4 rounded-lg h-full w-full bg-background  flex flex-col overflow-y-auto">
+      <div className="flex-1 h-full flex flex-row">
+        <div className=" max-w-lg w-full h-full flex flex-col">
+          <div className=" flex flex-col border-b h-48">
           </div>
-        )}
-        <div className="md:col-span-2 lg:col-span-1">
-          <Chart />
-        </div>
-        {!isMobile && (
-          <div className="lg:col-span-1">
-            <OrderForm />
+          <div className=" flex flex-col">
+            <div className="text-lg font-display bg-primary text-primary-foreground p-2 rounded-t-md">{`<Activity)`}</div>
           </div>
-        )}
-      </div>
-      {isMobile && (
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background border-t flex justify-between">
-          <ResponsiveScrollableTransactions />
-          <Drawer open={isOrderFormOpen} onOpenChange={setIsOrderFormOpen}>
-            <DrawerTrigger asChild>
-              <Button>Place Order</Button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Place Order</DrawerTitle>
-              </DrawerHeader>
-              <div className="p-4">
-                <OrderForm />
-              </div>
-            </DrawerContent>
-          </Drawer>
+          <Transactions />
         </div>
-      )}
+        <div className="w-full h-full p-4">
+          <div className="w-full h-full">
+            <Chart />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

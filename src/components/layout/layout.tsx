@@ -30,21 +30,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
       {/* logo */}
-      <div className="absolute top-0 left-0 bg-gradient-to-r from-primary to-transparent lg:w-96 lg:h-12 ">
-        <Image src="/images/logo2.svg" alt="logo" className="h-full w-72 md:w-96 " width={800} height={300} />
+      <div className="absolute top-0 left-0 bg-gradient-to-r from-primary to-transparent lg:w-90 ">
+        <Image src="/images/logo2.svg" alt="logo" className="w-[52vw] h-full sm:w-90 " width={800} height={300} />
       </div>
       {/* Account*/}
       <ConnectWallet />
-      {/* Hall of Fame */}
-      <div className='absolute bottom-0 left-0 pr-4 pl-2 flex items-center justify-end h-6 bg-primary rounded-tl-lg'
+      {/* Hall of Fame button */}
+      <div className='absolute bottom-0 left-0 pr-4 pl-2 flex items-center justify-end h-6 bg-primary rounded-tl-lg z-10'
         style={{
           clipPath: 'polygon(8px 0, 100% 0, 88% 100%, 0 100%)',
-
           borderRadius: '4px',
         }}>
         <Dialog>
           <DialogTrigger>
-            <Button variant={'ghost'} className="p-0 font-display text-black text-base cursor-pointer">
+            <Button variant={'ghost'} className="p-0 font-display text-black text-sm sm:text-base md:text-lg cursor-pointer">
               {'!HALL_OF_FAME?'}
             </Button>
           </DialogTrigger>
@@ -59,14 +58,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </DialogContent>
         </Dialog>
       </div>
-      {/* info */}
-      <div className='absolute bottom-0 right-0 px-2 flex items-center justify-end h-7 bg-primary rounded-l-xl'
+      {/* info button */}
+      <div className='absolute bottom-0 right-0 px-2 flex items-center justify-end h-6 md:h-7 bg-primary rounded-l-xl z-10'
         style={{
           clipPath: 'polygon(7px 0, 100% 0, 100% 100%, 0 100%)',
         }}>
         <Dialog>
           <DialogTrigger>
-            <Button variant={'ghost'} className="p-0 font-display text-black text-lg cursor-pointer">
+            <Button variant={'ghost'} className="p-0 font-display text-black text-sm sm:text-base md:text-lg cursor-pointer">
               {'(how_to-_play}'}
             </Button>
           </DialogTrigger>
@@ -81,6 +80,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </DialogContent>
         </Dialog>
       </div>
-    </div>
+      {/* mobile border */}
+      <div className="h-4 bottom-0 w-full z-0 bg-primary sm:hidden"></div>    </div>
   );
 }

@@ -11,12 +11,12 @@ export const ConnectWallet = () => {
 
   
   return (
-    <div className='absolute top-0 right-0 pr-3 pl-2 flex items-center justify-end h-7 bg-primary rounded-tl-lg'
+    <div className='w-[50vw] sm:w-auto absolute top-0 right-0 pr-3 pl-2 flex items-center justify-end h-7 bg-primary rounded-tl-lg'
       style={{
         clipPath: 'polygon(7px 0, 100% 0, 100% 100%, 0 100%)',
         borderRadius: '4px',
       }}>
-      <Button variant={'ghost'} className="w-full cursor-pointer font-display p-0 text-black text-lg bg-transparent" onClick={() => {
+      <Button variant={'ghost'} className="w-full cursor-pointer justify-end sm:jsutify-center font-display p-0 text-black md:text-lg bg-transparent" onClick={() => {
         modal?.open()
       }}>
         {isConnected ?
